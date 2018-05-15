@@ -9,7 +9,11 @@ const PATTERN = [ 1000, 2000, 3000, 4000] ;
 export default class App extends React.Component {
     constructor(props){
         super(props);
-        this.state = {isLoading: true,refreshing:false}
+        this.state = {
+					isLoading: true,
+					refreshing:false,
+					office:"all"
+				}
     }
 
     componentDidMount() {
@@ -38,6 +42,13 @@ export default class App extends React.Component {
     StopVibrationFunction=()=>{
         Vibration.cancel();
     }
+		
+		filterOfficeType = () => {
+			this.setState({
+				office:"pitt"
+			});
+			
+		}
     
     handleRefresh = () => {
         this.setState({
@@ -57,12 +68,17 @@ export default class App extends React.Component {
         return(
           <View style={{flex: 3, padding:20}}>
             <Text style={styles.headline}>Chemistry Contacts</Text>
+						<Button onPress={this.filterOfficeType} title="Pitt" />
             <FlatList
                 data={this.state.dataSource}
                 onRefresh={this.handleRefresh}
                 refreshing={this.state.refreshing}
-                renderItem={({item}) => <Text style={{padding:10}}><Text style={{fontSize:20}}>{item.nameLast}, {item.nameFirst}</Text>{"\n"}{item.email}{"\n"}{item.ext}</Text>}
-                keyExtractor={(item, index) => index}
+                renderItem={({item}) => 
+									<Text style={{padding:10}}>
+										<Text style={{fontSize:20}}>{item.nameLast}, {item.nameFirst}</Text>{"\n"}
+										{item.email}{"\n"}{item.ext}
+									</Text>}
+                keyExtractor={(item, index) => index.toString()}
             />
           </View>
         );
