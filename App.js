@@ -23,6 +23,7 @@ export default class App extends React.Component {
 
             this.setState({
               isLoading: false,
+							fulldataSource: responseJson.employees,
               dataSource: responseJson.employees,
             }, function(){
 
@@ -43,11 +44,32 @@ export default class App extends React.Component {
         Vibration.cancel();
     }
 		
-		filterOfficeType = () => {
+		filterOfficeTypePitt = () => {
+			let newarray = [];
+			this.state.dataSource.forEach((element, index) => {
+					if(element.office === 'pitt') {
+						newarray.push(element);
+					}
+			});
+
 			this.setState({
+				dataSource:newarray,
 				office:"pitt"
 			});
-			
+		}
+		
+		filterOfficeTypeAtl = () => {
+			let newarray = [];
+			this.state.dataSource.forEach((element, index) => {
+					if(element.office === 'atl') {
+						newarray.push(element);
+					}
+			});
+
+			this.setState({
+				dataSource:newarray,
+				office:"atl"
+			});
 		}
     
     handleRefresh = () => {
@@ -68,7 +90,8 @@ export default class App extends React.Component {
         return(
           <View style={{flex: 3, padding:20}}>
             <Text style={styles.headline}>Chemistry Contacts</Text>
-						<Button onPress={this.filterOfficeType} title="Pitt" />
+						<Button onPress={this.filterOfficeTypePitt} title="Pitt" />
+					  <Button onPress={this.filterOfficeTypeAtl} title="Atl" />
             <FlatList
                 data={this.state.dataSource}
                 onRefresh={this.handleRefresh}
