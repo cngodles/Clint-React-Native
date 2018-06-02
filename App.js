@@ -46,7 +46,7 @@ export default class App extends React.Component {
 		
 		filterOfficeTypePitt = () => {
 			let newarray = [];
-			this.state.dataSource.forEach((element, index) => {
+			this.state.fulldataSource.forEach((element, index) => {
 					if(element.office === 'pitt') {
 						newarray.push(element);
 					}
@@ -60,7 +60,7 @@ export default class App extends React.Component {
 		
 		filterOfficeTypeAtl = () => {
 			let newarray = [];
-			this.state.dataSource.forEach((element, index) => {
+			this.state.fulldataSource.forEach((element, index) => {
 					if(element.office === 'atl') {
 						newarray.push(element);
 					}
