@@ -44,6 +44,20 @@ export default class App extends React.Component {
         Vibration.cancel();
     }
 		
+		filterOfficeType = (officetype) => {
+			let newarray = [];
+			this.state.fulldataSource.forEach((element, index) => {
+					if(element.office === officetype) {
+						newarray.push(element);
+					}
+			});
+
+			this.setState({
+				dataSource:newarray,
+				office:officetype
+			});
+		}
+		
 		filterOfficeTypePitt = () => {
 			let newarray = [];
 			this.state.fulldataSource.forEach((element, index) => {
@@ -90,7 +104,7 @@ export default class App extends React.Component {
         return(
           <View style={{flex: 3, padding:20}}>
             <Text style={styles.headline}>Chemistry Contacts</Text>
-						<Button onPress={this.filterOfficeTypePitt} title="Pitt" />
+						<Button onPress={this.filterOfficeType('pitt')} title="Pitt" />
 					  <Button onPress={this.filterOfficeTypeAtl} title="Atl" />
             <FlatList
                 data={this.state.dataSource}
