@@ -8,8 +8,8 @@ const PATTERN = [ 1000, 2000, 3000, 4000] ;
 
 export default class App extends React.Component {
     constructor(props){
-        super(props);
-      console.log("hi");  
+      super(props);
+      //console.log("hi");  
       this.filterOfficeType.bind(this);
         this.state = {
 					isLoading: true,
@@ -51,15 +51,12 @@ export default class App extends React.Component {
     }
 		
 		filterOfficeType = (officetype) => {
-      console.log(this);
-      
       let newarray = [];
 			this.state.fulldataSource.forEach((element, index) => {
 					if(element.office === officetype) {
 						newarray.push(element);
 					}
 			});
-
 			this.setState({
 				dataSource:newarray,
 				office:officetype
