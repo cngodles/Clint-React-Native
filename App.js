@@ -9,6 +9,8 @@ const PATTERN = [ 1000, 2000, 3000, 4000] ;
 export default class App extends React.Component {
     constructor(props){
         super(props);
+      console.log("hi");  
+      this.filterOfficeType.bind(this);
         this.state = {
 					isLoading: true,
 					refreshing:false,
@@ -35,17 +37,23 @@ export default class App extends React.Component {
           })
         ;
     }
+  
+    componentDidUpdate() {
+      this.filterOfficeType;
+    }
     
     StartVibrationFunction=()=>{
-        Vibration.vibrate(DURATION) ;
+      Vibration.vibrate(DURATION) ;
     }
 
     StopVibrationFunction=()=>{
-        Vibration.cancel();
+      Vibration.cancel();
     }
 		
 		filterOfficeType = (officetype) => {
-			let newarray = [];
+      console.log(this);
+      
+      let newarray = [];
 			this.state.fulldataSource.forEach((element, index) => {
 					if(element.office === officetype) {
 						newarray.push(element);
@@ -59,38 +67,10 @@ export default class App extends React.Component {
 		}
 		
 		filterOfficeTypePitt = () => {
-			let newarray = [];
-			this.state.fulldataSource.forEach((element, index) => {
-					if(element.office === 'pitt') {
-						newarray.push(element);
-					}
-			});
-
-			this.setState({
-				dataSource:newarray,
-				office:"pitt"
-			});
-		}
-		
+			this.filterOfficeType("pitt");
+    }
 		filterOfficeTypeAtl = () => {
-			let newarray = [];
-			this.state.fulldataSource.forEach((element, index) => {
-					if(element.office === 'atl') {
-						newarray.push(element);
-					}
-			});
-
-			this.setState({
-				dataSource:newarray,
-				office:"atl"
-			});
-		}
-    
-    handleRefresh = () => {
-        this.setState({
-            lastSuggestionKey: '',
-            refreshing: true
-        });
+			this.filterOfficeType("atl");
     }
     
     render() {
@@ -104,7 +84,7 @@ export default class App extends React.Component {
         return(
           <View style={{flex: 3, padding:20}}>
             <Text style={styles.headline}>Chemistry Contacts</Text>
-						<Button onPress={this.filterOfficeType('pitt')} title="Pitt" />
+						<Button onPress={this.filterOfficeTypePitt} title="Pitt" />
 					  <Button onPress={this.filterOfficeTypeAtl} title="Atl" />
             <FlatList
                 data={this.state.dataSource}
