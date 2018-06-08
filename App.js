@@ -49,8 +49,12 @@ export default class App extends React.Component {
     StopVibrationFunction=()=>{
       Vibration.cancel();
     }
-		
-		filterOfficeType = (officetype) => {
+		/*
+    filterOfficeTypeVar(title){
+      console.log(title);
+		}
+    */
+		filterOfficeType(officetype){
       let newarray = [];
 			this.state.fulldataSource.forEach((element, index) => {
 					if(element.office === officetype) {
@@ -62,14 +66,14 @@ export default class App extends React.Component {
 				office:officetype
 			});
 		}
-		
+		/*
 		filterOfficeTypePitt = () => {
 			this.filterOfficeType("pitt");
     }
 		filterOfficeTypeAtl = () => {
 			this.filterOfficeType("atl");
     }
-    
+    */
     render() {
       if(this.state.isLoading){
           return(
@@ -81,8 +85,8 @@ export default class App extends React.Component {
         return(
           <View style={{flex: 3, padding:20}}>
             <Text style={styles.headline}>Chemistry Contacts</Text>
-						<Button onPress={this.filterOfficeTypePitt} title="Pitt" />
-					  <Button onPress={this.filterOfficeTypeAtl} title="Atl" />
+            <Button onPress={(e) => this.filterOfficeType("pitt")} title="Pitt" />
+            <Button onPress={(e) => this.filterOfficeType("atl")} title="Atl" />
             <FlatList
                 data={this.state.dataSource}
                 onRefresh={this.handleRefresh}
