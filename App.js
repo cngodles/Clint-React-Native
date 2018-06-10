@@ -21,13 +21,13 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     //console.log("hi");  
-    this.filterOfficeType.bind(this);
-      this.state = {
-        isLoading: true,
-        refreshing:false,
-        office:"all",
-        progress:0.5
-      }
+    //this.filterOfficeType.bind(this);
+    this.state = {
+      isLoading: true,
+      refreshing:false,
+      office:"all",
+      progress:0.5
+    }
   }
 
   componentDidMount() {
@@ -62,22 +62,25 @@ export default class App extends React.Component {
     Vibration.cancel();
   }
   
-  increaseProgress(){
-    
-    this.setState({progress:this.state.progress+0.1})
+  changeProgress(amt){
+    let newstate = this.state.progress+amt;
+    this.setState({progress:newstate});
   }
 
   filterOfficeType(officetype){
+    console.log(this.state.progress);
     let newarray = [];
     this.state.fulldataSource.forEach((element, index) => {
         if(element.office === officetype) {
           newarray.push(element);
         }
     });
+    //console.log(this.state.progress);
     this.setState({
       dataSource:newarray,
       office:officetype
     });
+    //console.log(this.state);
   }
 
   render() {
@@ -93,13 +96,14 @@ export default class App extends React.Component {
           <Text style={styles.headline}>Chemistry Contacts</Text>
           <Button onPress={(e) => this.filterOfficeType("pitt")} title="Pitt" />
           <Button onPress={(e) => this.filterOfficeType("atl")} title="Atl" />
-          <Button onPress={this.increaseProgress} title="Up" />
+          <Button onPress={(e) => this.changeProgress(0.1)} title="Up" />
+          <Button onPress={(e) => this.changeProgress(-0.1)} title="Down" />
           <ProgressCircle
-                style={ { height: 200 } }
-                progress={ this.progress }
-                progressColor={'rgb(134, 65, 244)'}
-                startAngle={ -Math.PI * 0.8 }
-                endAngle={ Math.PI * 0.8 }
+            style={ { height: 200 } }
+            progress={ this.state.progress }
+            progressColor={'rgb(134, 65, 244)'}
+            startAngle={ -Math.PI * 0.9 }
+            endAngle={ Math.PI * 0.9 }
             />
           <FlatList
               data={this.state.dataSource}
