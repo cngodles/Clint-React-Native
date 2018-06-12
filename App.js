@@ -1,11 +1,18 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, StyleSheet, ScrollView, Text, View, Vibration, Button, Image } from 'react-native';
+import { FlatList, ActivityIndicator, StyleSheet, ScrollView, Text, View, Vibration, Button, Image, TabBarIOS } from 'react-native';
 
 import { ProgressCircle } from 'react-native-svg-charts'
+import { StackNavigator } from 'react-navigation';
 
 
 const DURATION = 10000 ;
 const PATTERN = [ 1000, 2000, 3000, 4000] ;
+/*
+const App = StackNavigator({
+  Home: { screen: HomeScreen },
+  Profile: { screen: ProfileScreen },
+});
+*/
 
 /*
 class Greeting extends React.Component {
@@ -16,6 +23,20 @@ class Greeting extends React.Component {
   }
 }
 */
+
+
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+      </View>
+    );
+  }
+}
+
+
+
 
 export default class App extends React.Component {
   constructor(props){
@@ -67,6 +88,10 @@ export default class App extends React.Component {
     this.setState({progress:newstate});
   }
 
+  setProgress(amt){
+    this.setState({progress:amt});
+  }
+
   filterOfficeType(officetype){
     console.log(this.state.progress);
     let newarray = [];
@@ -92,14 +117,17 @@ export default class App extends React.Component {
         )
       }
       return(
-        <View style={{flex: 3, padding:20}}>
+        <View style={{flex: 2, padding:0}}>
           <Text style={styles.headline}>Chemistry Contacts</Text>
-          <Button onPress={(e) => this.filterOfficeType("pitt")} title="Pitt" />
-          <Button onPress={(e) => this.filterOfficeType("atl")} title="Atl" />
-          <Button onPress={(e) => this.changeProgress(0.1)} title="Up" />
-          <Button onPress={(e) => this.changeProgress(-0.1)} title="Down" />
+          <HomeScreen />
+          <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0}}>
+            <Button onPress={(e) => this.filterOfficeType("pitt")} buttonStyle={{width: 50, flex:1}} title="Pitt" />
+            <Button onPress={(e) => this.filterOfficeType("atl")} buttonStyle={{width: 50, flex:1}} title="Atl" />
+            <Button onPress={(e) => this.changeProgress(0.02)} buttonStyle={{width: 50, flex:1}} title="Up" />
+            <Button onPress={(e) => this.changeProgress(-0.02)} buttonStyle={{width: 50, flex:1}} title="Down" />
+          </View>
           <ProgressCircle
-            style={ { height: 200 } }
+            style={ { height: 80 } }
             progress={ this.state.progress }
             progressColor={'rgb(134, 65, 244)'}
             startAngle={ -Math.PI * 0.9 }
@@ -116,6 +144,23 @@ export default class App extends React.Component {
                 </Text>}
               keyExtractor={(item, index) => index.toString()}
           />
+          <TabBarIOS>
+            <TabBarIOS.Item 
+              title="Up" 
+              systemIcon="favorites"
+              onPress={(e) => this.setProgress(0.25)}
+            />
+            <TabBarIOS.Item 
+              title="Down" 
+              systemIcon="favorites"
+              onPress={(e) => this.setProgress(0.50)}
+            />
+            <TabBarIOS.Item 
+              title="Down" 
+              systemIcon="favorites"
+              onPress={(e) => this.setProgress(0.75)}
+            />
+          </TabBarIOS>
         </View>
       );
     }
