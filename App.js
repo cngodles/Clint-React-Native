@@ -28,7 +28,7 @@ class Greeting extends React.Component {
 class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ff9900' }}>
         <Text>Home Screen</Text>
       </View>
     );
@@ -117,24 +117,25 @@ export default class App extends React.Component {
         )
       }
       return(
-        <View style={{flex: 2, padding:0}}>
+        <View style={{flex: 1, padding:0}}>
           <Text style={styles.headline}>Chemistry Contacts</Text>
           <HomeScreen />
-          <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0}}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0, backgroundColor: '#009fdb'}}>
             <Button onPress={(e) => this.filterOfficeType("pitt")} buttonStyle={{width: 50, flex:1}} title="Pitt" />
             <Button onPress={(e) => this.filterOfficeType("atl")} buttonStyle={{width: 50, flex:1}} title="Atl" />
             <Button onPress={(e) => this.changeProgress(0.02)} buttonStyle={{width: 50, flex:1}} title="Up" />
             <Button onPress={(e) => this.changeProgress(-0.02)} buttonStyle={{width: 50, flex:1}} title="Down" />
           </View>
           <ProgressCircle
-            style={ { height: 80 } }
+            style={ { flex:1 } }
             progress={ this.state.progress }
             progressColor={'rgb(134, 65, 244)'}
             startAngle={ -Math.PI * 0.9 }
             endAngle={ Math.PI * 0.9 }
             />
           <FlatList
-              data={this.state.dataSource}
+            style={ { flex:3 } }  
+            data={this.state.dataSource}
               onRefresh={this.handleRefresh}
               refreshing={this.state.refreshing}
               renderItem={({item}) => 
