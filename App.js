@@ -108,19 +108,9 @@ export default class App extends React.Component {
     //console.log(this.state);
   }
 
-  render() {
-    if(this.state.isLoading){
-        return(
-          <View style={{flex: 3, padding: 20}}>
-            <ActivityIndicator/>
-          </View>
-        )
-      }
-      return(
-        <View style={{flex: 1, padding:0}}>
-          <Text style={styles.headline}>Chemistry Contacts</Text>
-          <HomeScreen />
-          <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0, backgroundColor: '#009fdb'}}>
+/*
+<HomeScreen />
+<View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0, backgroundColor: '#009fdb'}}>
             <Button onPress={(e) => this.filterOfficeType("pitt")} buttonStyle={{width: 50, flex:1}} title="Pitt" />
             <Button onPress={(e) => this.filterOfficeType("atl")} buttonStyle={{width: 50, flex:1}} title="Atl" />
             <Button onPress={(e) => this.changeProgress(0.02)} buttonStyle={{width: 50, flex:1}} title="Up" />
@@ -133,6 +123,20 @@ export default class App extends React.Component {
             startAngle={ -Math.PI * 0.9 }
             endAngle={ Math.PI * 0.9 }
             />
+
+*/
+
+  render() {
+    if(this.state.isLoading){
+        return(
+          <View style={{flex: 3, padding: 20}}>
+            <ActivityIndicator/>
+          </View>
+        )
+      }
+      return(
+        <View style={{flex: 1, padding:0}}>
+          <Text style={styles.headline}>Chemistry Contacts</Text>
           <FlatList
             style={ { flex:3 } }  
             data={this.state.dataSource}
@@ -147,19 +151,13 @@ export default class App extends React.Component {
           />
           <TabBarIOS>
             <TabBarIOS.Item 
-              title="Up" 
               systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.25)}
+              onPress={(e) => this.filterOfficeType("pitt")}
             />
             <TabBarIOS.Item 
-              title="Down" 
+              title="Atlanta" 
               systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.50)}
-            />
-            <TabBarIOS.Item 
-              title="Down" 
-              systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.75)}
+              onPress={(e) => this.filterOfficeType("atl")}
             />
           </TabBarIOS>
         </View>
