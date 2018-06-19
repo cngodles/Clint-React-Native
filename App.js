@@ -5,6 +5,8 @@ import { ProgressCircle } from 'react-native-svg-charts'
 import { StackNavigator } from 'react-navigation';
 
 
+import { appImages } from './images';
+
 const DURATION = 10000 ;
 const PATTERN = [ 1000, 2000, 3000, 4000] ;
 /*
@@ -118,7 +120,7 @@ export default class App extends React.Component {
       }
       return(
         <View style={{flex: 1, padding:0}}>
-          <Text style={styles.headline}>Chemistry Contacts</Text>
+          <Text style={styles.headline}>Pokemon Go Reference</Text>
           <HomeScreen />
           <View style={{flex: 1, flexDirection: 'row', justifyContent:'center', padding:0, backgroundColor: '#009fdb'}}>
             <Button onPress={(e) => this.filterOfficeType("pitt")} buttonStyle={{width: 50, flex:1}} title="Pitt" />
@@ -147,11 +149,6 @@ export default class App extends React.Component {
           />
           <TabBarIOS>
             <TabBarIOS.Item 
-              title="Up" 
-              systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.25)}
-            />
-            <TabBarIOS.Item 
               title="Down" 
               systemIcon="favorites"
               onPress={(e) => this.setProgress(0.50)}
@@ -175,12 +172,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     headline: {
-        flex:0.2,
-        fontSize: 30,
+        flex:2,
+        fontSize: 24,
         fontWeight:"700",
         padding:20,
         textAlign:"center",
-        backgroundColor: '#fff',
+				color:'#fff',
+        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
   },
