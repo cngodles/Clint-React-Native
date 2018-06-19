@@ -1,14 +1,14 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, StyleSheet, ScrollView, Text, View, Vibration, Button, Image, TabBarIOS } from 'react-native';
 
-import { ProgressCircle } from 'react-native-svg-charts'
+import { ProgressCircle } from 'react-native-svg-charts';
 import { StackNavigator } from 'react-navigation';
 
 
-import { appImages } from './images';
+import appImages from './images';
 
-const DURATION = 10000 ;
-const PATTERN = [ 1000, 2000, 3000, 4000] ;
+const DURATION = 10000;
+const PATTERN = [ 1000, 2000, 3000, 4000];
 /*
 const App = StackNavigator({
   Home: { screen: HomeScreen },
@@ -45,11 +45,14 @@ export default class App extends React.Component {
     super(props);
     //console.log("hi");  
     //this.filterOfficeType.bind(this);
+    //const images = appImages;
     this.state = {
       isLoading: true,
       refreshing:false,
       office:"all",
-      progress:0.5
+      progress:0.5,
+      selectedTab:'option1',
+      images:appImages
     }
   }
 
@@ -94,6 +97,21 @@ export default class App extends React.Component {
     this.setState({progress:amt});
   }
 
+  goUp(){
+    this.setProgress(0.75);
+    this.setState({
+      selectedTab:'option2'
+    });
+  }
+  goDown(){
+    this.setProgress(0.25);
+    this.setState({
+      selectedTab:'option1'
+    });
+  }
+
+  
+
   filterOfficeType(officetype){
     console.log(this.state.progress);
     let newarray = [];
@@ -113,11 +131,12 @@ export default class App extends React.Component {
   render() {
     if(this.state.isLoading){
         return(
-          <View style={{flex: 3, padding: 20}}>
+          <View style={{flex: 1, padding: 20}}>
             <ActivityIndicator/>
           </View>
         )
       }
+      console.log("rendered!", appImages);
       return(
         <View style={{flex: 1, padding:0}}>
           <Text style={styles.headline}>Pokemon Go Reference</Text>
@@ -149,14 +168,21 @@ export default class App extends React.Component {
           />
           <TabBarIOS>
             <TabBarIOS.Item 
+              selected={this.state.selectedTab === 'option1'}
               title="Down" 
-              systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.50)}
+              icon={appImages.tSampleicon1}
+              onPress={() => {
+                this.setState({
+                  selectedTab: 'option1',
+                });
+                this.goDown();
+              }}
             />
             <TabBarIOS.Item 
-              title="Down" 
-              systemIcon="favorites"
-              onPress={(e) => this.setProgress(0.75)}
+              /*selected={false}*/
+              title="Up" 
+              icon={appImages.tSampleicon2}
+              onPress={(e) => this.goUp()}
             />
           </TabBarIOS>
         </View>
@@ -172,7 +198,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     headline: {
-        flex:2,
+        flex:0.5,
         fontSize: 24,
         fontWeight:"700",
         padding:20,
